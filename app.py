@@ -47,23 +47,4 @@ async def mc(ctx, *, commande):
         print(f"❌ Erreur : {e}")  # Voir l'erreur exacte dans la console
         await ctx.send(f"❌ Erreur lors de l'exécution : {e}")
 
-@bot.command()
-async def clear(ctx, nombre: int):
-    """Supprime un nombre spécifié de messages dans le salon."""
-    
-    # Vérifier si l'utilisateur a la permission de gérer les messages dans le salon
-    if not ctx.author.guild_permissions.manage_messages:
-        await ctx.send("❌ Vous n'avez pas la permission de supprimer des messages.")
-        return
-    
-    if nombre < 1 or nombre > 100:
-        await ctx.send("❌ Veuillez entrer un nombre entre 1 et 100.")
-        return
-
-    # Supprimer les messages
-    await ctx.channel.purge(limit=nombre + 1)  # On ajoute 1 pour supprimer la commande elle-même
-
-    # Confirmer l'action
-    await ctx.send(f"✅ {nombre} messages ont été supprimés.", delete_after=5)
-
 bot.run(TOKEN)
